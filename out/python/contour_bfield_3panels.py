@@ -8,9 +8,11 @@ from matplotlib.animation import FuncAnimation
 from matplotlib.collections import LineCollection
 from matplotlib.colors import ListedColormap
 
+
 def load_table_vertical(fname):  
   # Vertical slice
   lines = open(fname).readlines()
+
 
   #  Read the dimensions and the grid arrays (rows 0,1,2)
   nx, ny  = int(lines[0].split()[0]), int(lines[0].split()[1])
@@ -74,7 +76,7 @@ def load_table_equatorial(fname):
 #    f = 1.e-2*((r-r[0])*(r[-1]-r))**2*np.sin(theta)*np.cos(theta)
 #    return f
 
-file_name = 'out/2D/b_merid_l0180_volume.dat'
+file_name = "//wsl.localhost/Ubuntu-24.04/home/fba/projects/MATINS-intel/out/2D/b_merid_l0180_volume.dat"
 nx, ny, ntimes1, r, theta, br1, bth1, bphi1, phi1_sc, psi1_sc = load_table_vertical(file_name)
 THETA, R1 = np.meshgrid(theta, r)
 #
@@ -83,10 +85,10 @@ THETA, R1 = np.meshgrid(theta, r)
 X1=R1*np.sin(THETA)
 Y1=R1*np.cos(THETA)
 
-file_name = 'out/2D/b_merid_l90270_volume.dat'
+file_name = "//wsl.localhost/Ubuntu-24.04/home/fba/projects/MATINS-intel/out/2D/b_merid_l90270_volume.dat"
 nx, ny, ntimes2, r, theta, br2, bth2, bphi2, phi2_sc, psi2_sc = load_table_vertical(file_name)
 
-file_name = 'out/2D/b_equator_volume.dat'
+file_name = "//wsl.localhost/Ubuntu-24.04/home/fba/projects/MATINS-intel/out/2D/b_equator_volume.dat"
 nx, ny, ntimes3, r, phi, br3, bth3, bphi3, phi3_sc, psi3_sc = load_table_equatorial(file_name)
 PHI, R3 = np.meshgrid(phi, r)
 #
@@ -141,6 +143,9 @@ def animate(frame):
 
   ###################
   
+
+
+
   # Colorbar
 # Manual input of MIN and MAX
 min_b1 = np.min(func1)

@@ -1,0 +1,18 @@
+# Fortran build products
+obj/
+*.o
+*.mod
+/matins
+
+# MATINS simulation output
+out/1D/
+out/2D/
+out/3D/
+out/energy/
+
+# Local backup files
+*.before_*
+
+# Python cache files
+__pycache__/
+*.py[cod]

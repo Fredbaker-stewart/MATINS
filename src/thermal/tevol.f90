@@ -245,8 +245,11 @@ subroutine tevol(dt)
             kappa_perp_out = kappa_perp_arr(i+1,j,k,p)
           else
             !omegatau_out = 0.5d0*(omegatau_arr(i, j, k, p) + omegatau_arr(i+1, j, k, p))
-            omegatau_out = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i+1, j, k, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
-            omegatau_out = 10.0**(omegatau_out) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+            
+            !omegatau_out = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i+1, j, k, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+            !omegatau_out = 10.0**(omegatau_out) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+              
+            omegatau_out = (omegatau_arr(i, j, k, p) * omegatau_arr(i+1, j, k, p))**0.5d0
 
             if (omegatau_out /= omegatau_out) then
               print*,i,j,k,p,omegatau_out,omegatau_arr(i,j,k,p),omegatau_arr(i+1,j,k,p)
@@ -254,20 +257,31 @@ subroutine tevol(dt)
             endif
             !kappa_perp_out = kappa_perp_arr(i,j,k,p)+ &
             !& (kappa_perp_arr(i+1,j,k,p) - kappa_perp_arr(i,j,k,p))*(r(ic+1)-r(ic))/(r(ic+2)-r(ic))
+            
+            
+            
             kappa_perp_out = Log10(kappa_perp_arr(i,j,k,p))+ &
             & (Log10(kappa_perp_arr(i+1,j,k,p)) - Log10(kappa_perp_arr(i,j,k,p)))*(r(ic+1)-r(ic))/(r(ic+2)-r(ic)) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
             kappa_perp_out = 10.0**(kappa_perp_out) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+            
       
 
           endif 
 
           !omegatau_xip = 0.5d0*(omegatau_arr(i, j, k, p) + omegatau_arr(i, j+1, k, p))
           !omegatau_etap = 0.5d0*(omegatau_arr(i, j, k, p) + omegatau_arr(i, j, k+1, p))
-          omegatau_xip = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i, j+1, k, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
-          omegatau_xip = 10.0**omegatau_xip ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
-          omegatau_etap = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i, j, k+1, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
-          omegatau_etap = 10.0**omegatau_etap ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
-
+          
+          
+          !omegatau_xip = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i, j+1, k, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+          !omegatau_xip = 10.0**omegatau_xip ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+          !omegatau_etap = 0.5d0*(Log10(omegatau_arr(i, j, k, p)) + Log10(omegatau_arr(i, j, k+1, p))) ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+          !omegatau_etap = 10.0**omegatau_etap ! DEBUGGING !!! THIS IS JUST A TRY (ERASE IT IF IT DOES NOT WORK)
+          
+          
+          omegatau_xip = (omegatau_arr(i, j, k, p) * omegatau_arr(i, j+1, k, p))**0.5d0
+          omegatau_etap = (omegatau_arr(i, j, k, p) * omegatau_arr(i, j, k+1, p))**0.5d0
+          
+          
           ! Linear interpolation to obtain the value at the borders
           !kappa_perp_xip = kappa_perp_arr(i,j,k,p) + &
           !& (kappa_perp_arr(i,j+1,k,p) - kappa_perp_arr(i,j,k,p))*(xi(jc+1)-xi(jc))/(xi(jc+2)-xi(jc))
